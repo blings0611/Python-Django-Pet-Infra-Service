@@ -1,0 +1,69 @@
+<style>
+  .navbar-brand{
+    font-family: AppleSDGothicNeoEB;
+    font-size: 20px;
+  }
+</style>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+      <!-- 사이드바 햄버거 버튼 -->
+      <div class="btn-toggle-mobile-side-bar mr-3">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+      <!-- 상단 고정 네비바 -->
+      <a class="navbar-brand" href="/">i Pet</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          {% if request.session.user %}
+          <!--로그인이 된 경우-->
+          <li class="nav-item">
+            <a class="nav-link" href="/members/mypage/{{request.session.user.u_name}}">My Page</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/members/logout">Log Out</a>
+          </li>
+          {% else %}
+            <!-- 로그인이 안된 경우 -->
+          <li class="nav-item">
+            <a class="nav-link" href="/members/register">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/members/login">Sign In</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+      <!-- 사이드 바 -->
+      <div class="menu-box flex">
+        <div class="menu-box-1">
+            <div class="icon-1  flex">
+              <i class="fas fa-times">
+                X
+              </i>
+            </div>
+        <div class="main-txt flex">반려동물<br> 인프라 검색 <br>  커뮤니티</div>
+        <ul class="flex">
+            <li class="flex"><a href="/" style="color: black">HOME</a></li>
+            <li class="flex"><a href="/place" style="color: black">인프라 검색</a></li>
+            <li class="flex"><a href="/board/list" style="color: black">자유 게시판</a></li>
+            <li class="flex"><a href="/board/list2" style="color: black">병원 후기 게시판</a></li>
+            <li class="flex"><a href="/board/list3" style="color: black">펫 분실 게시판</a></li>
+        </ul>
+        </div>
+            </div>
+        </div>
+      </div>
+  </div>
+</nav>

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block html_header %}
+<style>
+  html{
+    min-height: 100%;
+  }
+  .col-sm-2.col-md-2{
+    padding-top: 95px;
+    margin-left: 300px;
+  }
+  .col-sm-4.col-md-4{
+    padding-top: 95px;
+    margin-left: 200px;
+  }
+  .title{
+    padding-top: 55px;
+    text-align: center;
+  }
+</style>
+{% endblock %}
+
+{% block html_body %}
+
+  <div class="title">
+    <h1 style="font-weight: bold;">나의 프로필</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-2 col-md-2">
+      {% if myinfo.prof_pic %}
+      <img src="{{ myinfo.prof_pic.url }}" id="imgProfile" style="width: 300px; height: 300px">
+      {% else %}
+      <img src="/media/images/default_profile.jpg" id="imgProfile" style="width: 300px; height: 300px">
+      {% endif %}
+    </div>
+
+    <div class="col-sm-4 col-md-4">
+      <table class="table table-user-information" style="height: 200px">
+        <tbody>
+          <tr>
+            <td>ID</td>
+            <td>{{myinfo.username}}</td>
+          </tr>
+          <tr>
+            <td>이메일</td>
+            <td>{{myinfo.email}}</td>
+          </tr>
+          <tr>
+            <td>닉네임</td>
+            <td>{{myinfo.nickname}}</td>
+          </tr>
+          <tr>
+            <td>반려동물 종</td>
+            <td>{{myinfo.species}}</td>
+          </tr>
+          <tr>
+            <td>지역</td>
+            <td>{{myinfo.local}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <a href="/members/mypageEdit/{{request.session.user.u_name}}" class="btn btn-info btn-block" style="font-size: 1.0rem; font-weight: bold; color :white;">프로필 수정</a>
+    </div>
+
+  </div>
+{% endblock %}

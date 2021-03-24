@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block html_header %}
+<style>
+  html{
+    min-height: 100%;
+  }
+  body{
+    padding-top: 100px;
+  }
+  .panel-body {
+    width: 100%;
+    max-width: 700px;
+    padding: 100px;
+    margin: 0 auto -120px;
+  }
+  .panel-heading{
+    padding-left: 200px;
+    padding-bottom: 15px;
+  }
+</style>
+{% endblock %}
+
+
+{% block html_body %}
+    <div class="panel-body">
+      <div class="panel-heading">
+        <h2 class="panel-title">Sign In</h2>
+      </div>
+      <form method = "POST" accept-charset="UTF-8" role="form">
+        {% csrf_token %}
+        <fieldset>
+          {% if err_msg %}
+            <h1 class="h3 mb-3 fw-normal">{{err_msg}}</h1>
+          {% endif %}
+          {% bootstrap_form login_form %}
+          <input class="btn btn-lg btn-info btn-block" type="submit" value="Login">
+        </fieldset>
+      </form>
+    </div>
+{% endblock %} 

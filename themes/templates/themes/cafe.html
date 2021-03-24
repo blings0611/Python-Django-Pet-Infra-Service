@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block html_header %}
+
+    <style>
+
+      img{
+        display: block;
+        margin: 0px auto;
+        }
+      header{
+        background-image: url("/static/img/cafe_bg.jpg");
+        background-size: 100%;
+        background-position: 100%;
+        }
+    footer{
+      position: absolute;
+    }
+    </style>
+
+{% endblock %}
+
+{% block html_body %}
+
+<!-- Header -->
+  <header id="my_banner" class="bg-primary py-5 mb-5" >
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-12">
+          <h2 id="my_infra" class="display-4 text-white text-align-center mt-5 mb-2">애견 동반 카페</h2>
+          <p class="lead mb-5 text-white-50"></p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <body>
+
+<main>
+
+  <div class="album py-5">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+      {% for cafe in cafes %}
+
+      <div class="col-lg-4 col-md-6 mb-5">
+        <div class="card h-100">
+          <img src="{{ cafe.img_url }}"
+                   width="150"
+                   height="150"
+                   alt="{{ cafe.title }}">
+          <div class="card-body">
+            <h4 class="card-title">{{ cafe.title }}</h4>
+            <p class="card-text">
+                <ul>
+                    <li>{{ cafe.category }}</li>
+                    <li>{{ cafe.tel }}</li>
+                    <li>{{ cafe.venue }}</li>
+                </ul>
+              </p>
+          </div>
+          <div class="card-footer">
+            <a href="/themes/{{ cafe.id }}" class="btn btn-info">View</a>
+          </div>
+
+        </div>
+      </div>
+
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="text-muted py-5">
+  <div class="container">
+    <p class="float-end mb-1">
+      <a href="#">Back to top</a>
+  </div>
+</footer>
+  </body>
+{% endblock %}
+

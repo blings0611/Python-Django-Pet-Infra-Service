@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block html_header %}
+    <script src="/static/js/posts.js"></script>
+{% endblock %}
+
+{% block html_body %}
+
+    <div class="container">
+        <br><br>
+        <h2 style="text-align:center"><font color="#191970">분실펫게시판 새글작성</font></h2>
+        <br><br>
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form post_form %}
+            <br>
+            <button type="submit"
+                    class="btn btn-info">등록</button>
+        </form>
+    </div>
+
+{% endblock %}

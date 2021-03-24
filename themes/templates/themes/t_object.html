@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block html_header %}
+
+
+  <!-- Custom styles for this template -->
+  <link href="/static/css/product.css" rel="stylesheet">
+
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fe73253e547a86600b053faf9b416ec1&libraries=services"></script>
+
+  <style>
+
+    header {
+      background-image: url("/static/img/obj_bg.jpg");
+      background-size: 100%;
+      background-position: 100%;
+    }
+    </style>
+
+{% endblock %}
+
+{% block html_body %}
+
+<!-- Header -->
+  <header id="my_banner" class="bg-primary py-5 mb-5" >
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-12">
+          <h2 id="my_infra" class="display-4 text-white text-align-center mt-5 mb-2">{{ selected_local.title }}</h2>
+          <p class="lead mb-5 text-white-50"></p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <body>
+
+<main>
+
+<div class="container">
+  <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+    <div class="bg-light pt-md-5 pb-md-5" style="border-radius: 21px 0px 0px 21px;">
+        <div class="my-3 py-3 text-center">
+            <h2 class="display-5">{{ selected_local.title }}</h2>
+            <p class="lead text-muted">
+                <img src="{{ selected_local.img_url }}"
+                       width="200"
+                       height="200"
+                       alt="{{ cafe.title }}">
+            </p>
+        </div>
+    </div>
+
+    <div class="bg-light pt-md-5 pb-md-5 ps-md-5 pe-md-5" style="border-radius: 0px 21px 21px 0px;">
+      <div id="map" style="width:100%; height:350px;"></div>
+    </div>
+  </div>
+
+    <div class="shadow-sm mx-auto" style="width: 80%; height: 100%; border-radius: 21px 21px 21px 21px;">
+        <li>　　　　● 카테고리  　:　 {{ selected_local.category }}</li>
+        <li>　　　　● 전화번호  　:　 {{ selected_local.tel }}</li>
+        <li>　　　　● 주소　　  　:　 {{ selected_local.venue }}</li>
+    </div>
+
+</div>
+
+<p style="margin-top:-12px"></p>
+<script>
+// json 형식으로 가져오기 = dictionary 형태
+var parsedmap = JSON.parse("{{ map_json|escapejs }}");
+console.log(parsedmap)
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch(parsedmap['venue'], function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(result[0].y, result[0].x), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+
+        // 지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content:'<div style="width:150px;text-align:center;padding:6px 0;">' + '{{selected_local.title}}' + '</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    }
+});
+</script>
+<br>
+<br>
+
+<div class="container">
+    <p class="float-end mb-1">
+        <input class="btn btn-info" type="button" value="BACK" onClick="history.go(-1)">
+    </p>
+</div>
+
+</main>
+  </body>
+{% endblock %}

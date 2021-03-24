@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block html_header %}
+    <script src="/static/js/themes.js"></script>
+{% endblock %}
+
+{% block html_body %}
+{# block 부분을 치환해서 사용할 거에요 #}
+
+    <div class="container">
+        <h1>최초 1회만 실행</h1>
+        <form action="/themes/dataInsert/" method="post">
+            {% csrf_token %}
+            <button class="w-100 btn btn-lg btn-primary" type="submit">데이터 가져오기</button>
+        </form>
+        <br>
+        <div>
+            <h5>모델 속 데이터를 json으로 파싱</h5>
+            <a href="/themes/mapJson/">json paring!</a>
+        </div>
+
+    </div>
+{% endblock %}
